@@ -12,7 +12,7 @@ IEnumerator num = numbers.GetEnumerator();
 
 while (num.MoveNext()) Console.WriteLine(num.Current);
 
-int maxNumber = 1_000_000_000;
+int maxNumber = 12;
 
 foreach (int item in TurboMaths.GetEvenNumbersList(maxNumber))
 {

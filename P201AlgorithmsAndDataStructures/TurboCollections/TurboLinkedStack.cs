@@ -18,9 +18,11 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
         };
     }
 
-    public T Peek() {
+    public T? Peek()
+    {
         // Return the Value of Last Node here.
-        return LastNode.Value;
+        if (LastNode != null) return LastNode.Value;
+        return default;
     }
 
     public T Pop()
@@ -54,7 +56,7 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
             // Similar to this:
             int count = 0;
             Node? lastNode = LastNode;
-            while(LastNode != null/* remove false and replace with correct condition...*/)
+            while(lastNode != null/* remove false and replace with correct condition...*/)
             {
                 count++;
                 lastNode = lastNode.Previous;
