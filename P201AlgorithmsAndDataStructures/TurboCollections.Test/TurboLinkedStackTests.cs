@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace TurboCollections.Test;
 
 public class TurboLinkedStackTests
@@ -12,18 +10,21 @@ public class TurboLinkedStackTests
     {
         TurboLinkedStack<object?> list = new TurboLinkedStack<object?>();
         list.Push(item);
-        if(list.Count == 0) Assert.Fail();
+        if(list.Count != 1) Assert.Fail();
     }
 
     [Test]
-    [TestCase(2)]
-    [TestCase("sup")]
-    [TestCase('a')]
-    public static void CanPeek(object item)
+    [TestCase(2,4)]
+    [TestCase("sup", "wassup")]
+    [TestCase('a','b')]
+    public static void CanPeek(object a, object b)
     {
         TurboLinkedStack<object?> list = new TurboLinkedStack<object?>();
-        list.Push(item);
-        if(list.Peek() == item) Assert.Pass(); 
+        list.Push(a);
+        list.Push(b);
+        if(list.Peek() != b) Assert.Fail();
+        list.Clear();
+        Assert.Throws<NullReferenceException>(() => list.Peek());
     }
 
     [Test]
@@ -53,8 +54,23 @@ public class TurboLinkedStackTests
         list.Push(a);
         list.Push(b);
         list.Clear();
-        if(list.Peek() != null) Assert.Fail();
+        if(list.Count != 0) Assert.Fail();
     }
-    
-    
+
+    [Test]
+    [TestCase(2,4)]
+    [TestCase("sup", "wassup")]
+    [TestCase('a','b')]
+    public static void EnumeratorMovesNextAndStartsOver(object a, object b)
+    {
+        TurboLinkedStack<object?> list = new TurboLinkedStack<object?>();
+        list.Push(a);
+        list.Push(b);
+        using var enumerator = list.GetEnumerator();
+        Assert.That(enumerator.Current, Is.EqualTo(b));
+        Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
+        Assert.That(enumerator.Current, Is.EqualTo(a));
+        enumerator.Reset();
+        Assert.That(enumerator.Current, Is.EqualTo(b));
+    }
 }

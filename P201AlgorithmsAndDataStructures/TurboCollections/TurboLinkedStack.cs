@@ -22,7 +22,7 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
     {
         // Return the Value of Last Node here.
         if (LastNode != null) return LastNode.Value;
-        return default;
+        throw new NullReferenceException();
     }
 
     public T Pop()
@@ -69,11 +69,8 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
         // This one is a bonus and a bit more difficult.
         // You need to create a new class named Enumerator.
         // You find the details below.
-        var enumerator = new Enumerator{
-            CurrentNode = null,
-            // This might look confusing. But remember? Last In. First Out.
-            FirstNode = LastNode
-        };
+        // This might look confusing. But remember? Last In. First Out.
+        var enumerator = new Enumerator(LastNode ?? throw new InvalidOperationException());
         return enumerator;
     }
     
@@ -83,8 +80,14 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
     }
 
     class Enumerator : IEnumerator<T> {
-        public Node? CurrentNode;
-        public Node? FirstNode;
+        private Node? CurrentNode;
+        private Node? FirstNode;
+
+        public Enumerator(Node firstNode)
+        {
+            FirstNode = firstNode;
+            CurrentNode = firstNode;
+        }
 
         public bool MoveNext(){
             // if we don't have a current node, we start with the first node
