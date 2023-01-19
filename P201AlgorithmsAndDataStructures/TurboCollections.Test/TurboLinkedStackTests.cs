@@ -67,10 +67,19 @@ public class TurboLinkedStackTests
         list.Push(a);
         list.Push(b);
         using var enumerator = list.GetEnumerator();
-        Assert.That(enumerator.Current, Is.EqualTo(b));
         Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
-        Assert.That(enumerator.Current, Is.EqualTo(a));
-        enumerator.Reset();
         Assert.That(enumerator.Current, Is.EqualTo(b));
+        enumerator.Reset();
+        Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
+        Assert.That(enumerator.Current, Is.EqualTo(b));
+    }
+    
+    [Test]
+    public void MoveNextReturnsTrueWhenListIsNotEmpty()
+    {
+        TurboLinkedStack<object> tls = new TurboLinkedStack<object>();
+        tls.Push(12);
+        var enumerator = tls.GetEnumerator();
+        Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
     }
 }

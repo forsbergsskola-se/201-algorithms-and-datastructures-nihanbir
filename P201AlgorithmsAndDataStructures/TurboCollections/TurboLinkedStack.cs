@@ -86,7 +86,6 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
         public Enumerator(Node firstNode)
         {
             FirstNode = firstNode;
-            CurrentNode = firstNode;
         }
 
         public bool MoveNext(){
@@ -106,7 +105,7 @@ public class TurboLinkedStack<T> : IEnumerable<T> {
 
         public void Reset() {
             // Look at Move. How can you make sure that this Enumerator starts over again?
-            CurrentNode = FirstNode;
+            CurrentNode = null;
         }
 
         public void Dispose()
