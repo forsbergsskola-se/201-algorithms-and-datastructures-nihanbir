@@ -82,4 +82,16 @@ public class TurboLinkedStackTests
         var enumerator = tls.GetEnumerator();
         Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
     }
+    [Test]
+    public void CurrentPointerMovesWithMoveNext()
+    {
+        TurboLinkedStack<object> tlq = new TurboLinkedStack<object>();
+        tlq.Push(12);
+        tlq.Push(100);
+        var enumerator = tlq.GetEnumerator();
+        enumerator.MoveNext();
+        Assert.That(enumerator.Current, Is.EqualTo(100));
+        enumerator.MoveNext();
+        Assert.That(enumerator.Current, Is.EqualTo(12));
+    }
 }
