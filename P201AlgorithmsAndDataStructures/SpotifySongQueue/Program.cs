@@ -1,6 +1,6 @@
 ﻿using TurboCollections;
 
-TurboLinkedQueue<string> songList = new TurboLinkedQueue<string>();
+TurboQueue<string> songList = new TurboQueue<string>();
 while (true) 
 {
     Console.WriteLine("What would you like to do? [s]kip or [a]dd?");
