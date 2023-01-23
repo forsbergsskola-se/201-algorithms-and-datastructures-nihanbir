@@ -1,3 +1,4 @@
+   
 namespace TurboCollections.Test;
 
 public static class MathsTests
@@ -33,5 +34,20 @@ public static class MathsTests
         {
             if(i%2 != 0 || i > maxNumber) Assert.Fail();
         }
+    }
+
+    [Test]
+    public static void CanCalculateAverage()
+    {
+        float[] array1 = {2,7,5,6};
+        Assert.That(TurboMaths.CalculateAverage(array1), Is.EqualTo(5));
+    }
+    [Test]
+    public static void TestFibonacci()
+    {
+        var fibs = Enumerable.Range(0, 10)
+            .Select(TurboMaths.RecursiveFib);
+        
+        Assert.That(fibs, Is.EqualTo(new []{0, 1, 1, 2, 3, 5, 8, 13, 21, 34}));
     }
 }
