@@ -1,4 +1,3 @@
-   
 namespace TurboCollections.Test;
 
 public static class MathsTests
