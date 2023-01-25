@@ -18,4 +18,13 @@ public class TurboSortTests
         Assert.That(list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
         Assert.That(list, Is.Ordered);
     }
+
+    [Test]
+    public void QuickSortWorks()
+    {
+        TurboLinkedList<int> list = new TurboLinkedList<int>{4, 7, 23, 5, 1};
+        TurboSort.QuickSort(list);
+        Assert.That(list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
+        Assert.That(list, Is.Ordered);
+    }
 }
