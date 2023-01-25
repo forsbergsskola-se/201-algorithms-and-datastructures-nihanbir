@@ -20,6 +20,13 @@ public class TurboLinkedList<T> : IEnumerable<T>
     private Node? _firstNode;
     private Node? _lastNode;
 
+    public void AddRange(IEnumerable<T> range)
+    {
+        foreach (var item in range)
+        {
+            Add(item);
+        }
+    }
     public void Add(T item)
     {
         if (_lastNode == null)
