@@ -1,151 +1,131 @@
 using System.Collections;
-
+ 
 namespace TurboCollections;
-
-public class TurboLinkedList<T> : IEnumerable<T>
-{
-    private class Node {
+ 
+public class TurboLinkedList<T> : IEnumerable<T> {
+    class Node 
+    {
+        public Node(T v) => Value = v;
         public T Value;
         public Node? Next;
-
-        public Node(T value, Node? next)
-        {
-            Value = value;
-            Next = next;
-        }
     }
-    
+    Node? _firstNode;
+    Node? _lastNode;
+ 
     public int Count { get; private set; }
-
-    private Node? _firstNode;
-    private Node? _lastNode;
-
-    public void AddRange(IEnumerable<T> range)
+ 
+    public T this[int i]
     {
-        foreach (var item in range)
-        {
-            Add(item);
-        }
+        get => Get(i);
+        set => Set(i, value);
     }
-    public void Add(T item)
+ 
+    public void Add(T value)
     {
-        if (_lastNode == null)
-        {
-            _firstNode = _lastNode = new Node(item, null);
-        }
-        else
-        {
-            _lastNode = _lastNode.Next = new Node(item, null);
-        }
+        Node newNode = new Node(value);
+        if (_firstNode == null) _firstNode = _lastNode = newNode;
+        else _lastNode = _lastNode!.Next = newNode;
         Count++;
     }
-
+ 
     public T Get(int index)
     {
-        if (index < 0) throw new IndexOutOfRangeException();
-        if (index >= Count) throw new IndexOutOfRangeException();
-        Node current = _firstNode!; // validated through index checks above
-        for (int i = 0; i < index; i++)
-        {
-            current = current.Next!; // validated through index checks above
-        }
-
-        return current.Value;
+        if (index >= Count || index < 0) throw new IndexOutOfRangeException();
+ 
+        Node currentNode = _firstNode!;
+        for (int i = 0; i < index; i++) currentNode = currentNode.Next!; 
+        return currentNode.Value;
     }
-    
+ 
     public void Set(int index, T value)
     {
-        if (index >= Count) throw new IndexOutOfRangeException();
-        Node current = _firstNode!;
-        for (int i = 0; i < index; i++) 
-        {
-            current = current.Next!;
-        }
-        
-        current.Value = value;
+        if (index >= Count || index < 0) throw new IndexOutOfRangeException();
+ 
+        Node currentNode = _firstNode!;
+        for (int i = 0; i < index; i++) currentNode = currentNode.Next!;
+        currentNode.Value = value;
     }
-    
-    public void Remove(int index)
-    {
-        if (index >= Count) throw new IndexOutOfRangeException();
-        Node current = _firstNode!;
-        Node? previous = null;
-        for (int i = 0; i < index; i++)
-        {
-            previous = current;
-            current = current.Next!;
-        }
-
-        if (previous != null)
-            previous.Next = current.Next;
-
-        if (_firstNode == current)
-            _firstNode = current.Next;
-
-        if (_lastNode == current)
-            _lastNode = previous;
-
-        Count--;
-    }
-    
-    // CRUD Operations
-    // create
-    // read
-    // update
-    // delete
-
+ 
     public void Clear()
     {
         _firstNode = _lastNode = null;
         Count = 0;
     }
-
-    public IEnumerator<T> GetEnumerator()
+ 
+    public void RemoveAt(int index)
     {
-        return new Enumerator(_firstNode);
+        if (index >= Count || index < 0) throw new IndexOutOfRangeException();
+ 
+        Node currentNode = _firstNode!;
+        Node? previousNode = null;
+ 
+        for (int i = 0; i < index; i++)
+        {
+            previousNode = currentNode;
+            currentNode = currentNode.Next!;
+        }
+        if (previousNode != null) previousNode.Next = currentNode.Next;
+        if (currentNode == _firstNode) _firstNode = _firstNode!.Next;
+        if (currentNode == _lastNode) _lastNode = previousNode;
+        Count--;
     }
-
-    IEnumerator IEnumerable.GetEnumerator()
+ 
+    public bool Contains(T item)
     {
-        return GetEnumerator();
+        foreach (T i in this)
+            if (EqualityComparer<T>.Default.Equals(i, item))
+                return true;
+        return false;
     }
-
+ 
+    public int IndexOf(T item)
+    {
+        int currentIndex = 0;
+        foreach (T i in this)
+        {
+            if (EqualityComparer<T>.Default.Equals(i, item)) return currentIndex;
+            currentIndex++;
+        }
+        return -1;
+    }
+ 
+    public void Remove(T item)
+    {
+        int currentIndex = 0;
+        foreach (T i in this)
+        {
+            if (EqualityComparer<T>.Default.Equals(i, item))
+            {
+                RemoveAt(currentIndex);
+                return;
+            }
+            currentIndex++;
+        }
+    }
+ 
+    public void AddRange(IEnumerable<T> items) { foreach (T item in items) Add(item); }
+ 
+    public IEnumerator<T> GetEnumerator() => new Enumerator(_firstNode);
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+ 
     class Enumerator : IEnumerator<T>
     {
-        private readonly Node? _firstNode;
         private Node? _currentNode;
-
-        public Enumerator(Node? firstNode)
-        {
-            _firstNode = firstNode;
-        }
+        private readonly Node? _firstNode;
+ 
+        public Enumerator(Node? firstNode) => _firstNode = firstNode;
+ 
         public bool MoveNext()
         {
             _currentNode = _currentNode == null ? _firstNode : _currentNode.Next;
             return _currentNode != null;
         }
-
-        public void Reset()
-        {
-            _currentNode = null;
-        }
-
-        public T Current
-        {
-            get
-            {
-                if (_currentNode == null) throw new InvalidOperationException();
-                return _currentNode.Value;
-            }
-        }
-
-        object? IEnumerator.Current => Current;
-
-        public void Dispose() { }
-    }
-    public T this[int index]
-    {
-        get => Get(index);
-        set => Set(index, value);
+ 
+        public void Reset() => _currentNode = null;
+ 
+        public T Current => _currentNode!.Value;
+        object IEnumerator.Current => Current!;
+ 
+        public void Dispose() {}
     }
 }
