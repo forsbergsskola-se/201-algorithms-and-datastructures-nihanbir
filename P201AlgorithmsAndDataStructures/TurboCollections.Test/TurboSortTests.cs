@@ -2,29 +2,35 @@ namespace TurboCollections.Test;
 
 public class TurboSortTests
 {
+    private TurboLinkedList<int> _list = null!;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _list = new TurboLinkedList<int>{4, 7, 23, 5, 1};
+    }
+    
     [Test]
     public void SelectionSortWorks()
     {
-        TurboLinkedList<int> list = new TurboLinkedList<int>{4, 7, 23, 5, 1};
-        TurboSort.SelectionSort(list);
-        Assert.That(list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
-        Assert.That(list, Is.Ordered);
+        TurboSort.SelectionSort(_list);
+        Assert.That(_list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
+        Assert.That(_list, Is.Ordered);
     }
+    
     [Test]
     public void BubbleSortWorks()
     {
-        TurboLinkedList<int> list = new TurboLinkedList<int>{4, 7, 23, 5, 1};
-        TurboSort.BubbleSort(list);
-        Assert.That(list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
-        Assert.That(list, Is.Ordered);
+        TurboSort.BubbleSort(_list);
+        Assert.That(_list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
+        Assert.That(_list, Is.Ordered);
     }
 
     [Test]
     public void QuickSortWorks()
     {
-        TurboLinkedList<int> list = new TurboLinkedList<int>{4, 7, 23, 5, 1};
-        TurboSort.QuickSort(list);
-        Assert.That(list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
-        Assert.That(list, Is.Ordered);
+        TurboSort.QuickSort(_list);
+        Assert.That(_list, Is.EquivalentTo(new []{4, 7, 23, 5, 1}));
+        Assert.That(_list, Is.Ordered);
     }
 }

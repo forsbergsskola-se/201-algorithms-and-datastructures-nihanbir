@@ -79,7 +79,7 @@ public class TurboLinkedStackTests
     {
         TurboLinkedStack<object> tls = new TurboLinkedStack<object>();
         tls.Push(12);
-        var enumerator = tls.GetEnumerator();
+        using var enumerator = tls.GetEnumerator();
         Assert.That(enumerator.MoveNext(), Is.EqualTo(true));
     }
     [Test]
@@ -88,7 +88,7 @@ public class TurboLinkedStackTests
         TurboLinkedStack<object> tlq = new TurboLinkedStack<object>();
         tlq.Push(12);
         tlq.Push(100);
-        var enumerator = tlq.GetEnumerator();
+        using var enumerator = tlq.GetEnumerator();
         enumerator.MoveNext();
         Assert.That(enumerator.Current, Is.EqualTo(100));
         enumerator.MoveNext();
