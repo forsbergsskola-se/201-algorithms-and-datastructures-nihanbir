@@ -1,12 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
+    public GameObject menu;
+    public GameObject infoBox;
+
+    private void Start()
+    {
+        
+    }
+
     private void OnMouseDown()
     {
-        throw new NotImplementedException();
+        menu.SetActive(!menu.activeSelf);
     }
 }
