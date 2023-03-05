@@ -50,11 +50,11 @@ public class GameView : MonoBehaviour
         if (Game.CurrentCost > Game.Threshold)
         {
             NPCManager.GameIsActive = false;
-            Game.TeleportToStart();
+            StartCoroutine(Game.TeleportToStart());
         }
 
         if (Game.State.playerPosition != Game.goalPosition) return;
-        Game.TeleportToStart();
-        _npc.YouWin();
+        StartCoroutine(Game.TeleportToStart());
+        StartCoroutine(_npc.YouWin());
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -25,10 +26,12 @@ public class NPCManager : MonoBehaviour
         GameIsActive = true;
     }
 
-    public void YouWin()
+    public IEnumerator YouWin()
     {
+        yield return new WaitForSeconds(.5f);
         gemInfo.SetActive(false);
         GameIsActive = false;
         youWinScreen.SetActive(true);
     }
+    
 }

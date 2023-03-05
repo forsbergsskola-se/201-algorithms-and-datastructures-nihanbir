@@ -79,8 +79,9 @@ public class Game : MonoBehaviour
         State = path.ElementAt(0);
     }
 
-    public void TeleportToStart()
+    public IEnumerator TeleportToStart()
     {
+        yield return new WaitForSeconds(.5f);
         NPCManager.buttonActive = true;
         state.playerPosition = startPosition;
         foreach (var gridCell in state.Grid.cells) if (gridCell.walkable) gridCell.visited = false;
@@ -89,6 +90,16 @@ public class Game : MonoBehaviour
         CurrentCost = 0;
         State = state;
     }
+    // public void TeleportToStart()
+    // {
+    //     NPCManager.buttonActive = true;
+    //     state.playerPosition = startPosition;
+    //     foreach (var gridCell in state.Grid.cells) if (gridCell.walkable) gridCell.visited = false;
+    //     Threshold += (int)(CurrentCost * .7f);
+    //     NPCManager.GameIsActive = true;
+    //     CurrentCost = 0;
+    //     State = state;
+    // }
 
     public void RestartGame()
     {
