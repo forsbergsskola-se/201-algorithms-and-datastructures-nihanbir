@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameView : MonoBehaviour
@@ -6,11 +7,15 @@ public class GameView : MonoBehaviour
     public Game Game;
     public GameObject PlayerView;
     [SerializeField] CellView TilePrefab;
-    
+    public TextMeshProUGUI thresholdText;
+    public TextMeshProUGUI currentCostText;
+
+    private NPCManager _npc;
     List<CellView> _tiles = new();
 
     void Start()
     {
+        _npc = FindObjectOfType<NPCManager>();
         Game.StateChanged += OnGameStateChanged; // subscribe for future changes
         OnGameStateChanged(Game.State); // update for current state
     }
@@ -23,10 +28,10 @@ public class GameView : MonoBehaviour
         
         // attempt to increase currentCost
         Game.CurrentCost += newCell.cost;
-        
-        // ** used to 'pick up' weight from a tile when entered
-        newCell.cost = 0;
-        
+        currentCostText.text = $"{Game.CurrentCost}";
+
+        thresholdText.text = $"{Game.Threshold}";
+
         // destroy all tiles
         foreach (var tile in _tiles) Destroy(tile.gameObject);
         _tiles.Clear();
@@ -41,5 +46,15 @@ public class GameView : MonoBehaviour
                 _tiles.Add(tile);
             }
         }
+        
+        if (Game.CurrentCost > Game.Threshold)
+        {
+            NPCManager.GameIsActive = false;
+            Game.TeleportToStart();
+        }
+
+        if (Game.State.playerPosition != Game.goalPosition) return;
+        Game.TeleportToStart();
+        _npc.YouWin();
     }
 }

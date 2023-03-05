@@ -25,7 +25,7 @@ public class Grid : ScriptableObject
     bool IsCellWalkable(int x, int y) => GetCell(x, y).walkable;
     public bool IsCellWalkable(Vector2Int pos) => IsCellWalkable(pos.x, pos.y);
     
-    void OnEnable()
+    public void OnEnable()
     {
         foreach (var cell in cells)
         {

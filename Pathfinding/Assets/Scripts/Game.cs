@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,22 +10,22 @@ public class Game : MonoBehaviour
     [SerializeField] State state;
     public Vector2Int startPosition;
     public Vector2Int goalPosition;
+    [SerializeField] private int defaultThreshold = 34;
     [HideInInspector] public State goal;
     public static int Threshold;
-    [SerializeField] int threshold;
+    //[SerializeField] int threshold;
     public static int CurrentCost;
     public event Action<State> StateChanged;
-    
+
+    private NPCManager npc;
+
     void Start()
     {
-        state.playerPosition = startPosition;
+        npc = FindObjectOfType<NPCManager>();
+        RestartGame();
+        goal.playerPosition = goalPosition;
         goal.SetGrid(state.Grid);
-
-        foreach (var gridCell in state.Grid.cells) if (gridCell.walkable) gridCell.cost = Random.Range(5, 30);
-        state.Grid.GetCell(startPosition.x, startPosition.y).cost = 0;
-        state.Grid.GetCell(goalPosition.x, goalPosition.y).cost = 0;
-        
-        Threshold = 34;
+        Threshold = defaultThreshold;
     }
 
     public State State
@@ -39,28 +40,19 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (NPCManager.GameIsActive)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) Move(Vector2Int.left);
-            if (Input.GetKeyDown(KeyCode.RightArrow)) Move(Vector2Int.right);
-            if (Input.GetKeyDown(KeyCode.DownArrow)) Move(Vector2Int.down);
-            if (Input.GetKeyDown(KeyCode.UpArrow)) Move(Vector2Int.up);
-        }
+        if (!NPCManager.GameIsActive) return;
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) Move(Vector2Int.left);
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) Move(Vector2Int.right);
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) Move(Vector2Int.down);
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) Move(Vector2Int.up);
     }
 
     void Move(Vector2Int vec2direction)
     {
         State current = State;
         Vector2Int newPosition = current.playerPosition + vec2direction;
-        if (State.PositionExistsAndIsWalkable(newPosition))
-        {
-            // prevent walking on previously visited
-            if (!State.Grid.GetCell(newPosition).visited) current.playerPosition += vec2direction;
-            // normal behavior
-            // current.playerPosition += vec2direction;
-
-            // current.currentCost += current.Grid.GetCell(current.playerPosition).cost;
-        }
+        if (!State.PositionExistsAndIsWalkableAndIsNotVisited(newPosition)) return;
+        current.playerPosition += vec2direction;
         State = current;
     }
 
@@ -74,68 +66,46 @@ public class Game : MonoBehaviour
         }
     }
 
-    [ContextMenu("UpdateThreshold")]
-    public void UpdateThreshold()
-    {
-        Threshold = threshold;
-    }
-    
-    [ContextMenu("Depth First Search")]
-    public void DepthFirstSearch()
-    {
-        var path = Pathfinder.DepthFirstSearch(state, goal);
-        StartCoroutine(Co_PlayPath(path));
-    }
-    
-    [ContextMenu("Depth First Search Modified")]
-    public void DepthFirstSearchModified()
-    {
-        var path = Pathfinder.DepthFirstSearchModified(state, goal);
-        if (path != null) StartCoroutine(Co_PlayPath(path));
-    }
-
-    
-    [ContextMenu("Breadth First Search Paths")]
     public void BreadthFirstSearchPaths()
     {
+        if (!NPCManager.buttonActive) return;
+        NPCManager.buttonActive = false;
         var path = Pathfinder.BreadthFirstModified(state, goal);
         StartCoroutine(Co_PlayPath(path));
     }
-    
-    [ContextMenu("SecondVersion Search")]
-    public void SecondVersion()
+
+    public void Tip()
     {
-        var path = Pathfinder.FindHighestPathWithoutExceedingThreshold(state);
-        StartCoroutine(Co_PlayPath(path));
+        var path = Pathfinder.BreadthFirstModified(state, goal);
+        State = path.ElementAt(0);
     }
-    
-    [ContextMenu("Breadth First Search Predecessors")]
-    public void BreadthFirstSearchPredecessors()
+
+    public void TeleportToStart()
     {
-        var path = Pathfinder.BreadthFirstSearchPredecessors(state, goal);
-        StartCoroutine(Co_PlayPath(path));
+        NPCManager.buttonActive = true;
+        state.playerPosition = startPosition;
+        foreach (var gridCell in state.Grid.cells) if (gridCell.walkable) gridCell.visited = false;
+        Threshold += (int)(CurrentCost * .7f);
+        NPCManager.GameIsActive = true;
+        CurrentCost = 0;
+        State = state;
     }
-    
-    
-    [ContextMenu("Dijkstra Search")]
-    public void DijkstraSearch()
+
+    public void RestartGame()
     {
-        var path = Pathfinder.DijkstraSearch(state, goal);
-        StartCoroutine(Co_PlayPath(path));
-    }
-    
-    
-    [ContextMenu("Dijkstra Search Modified")]
-    public void DijkstraSearchModified()
-    {
-        var path = Pathfinder.DijkstraSearchModified(state);
-        if (path != null) StartCoroutine(Co_PlayPath(path));
-    }
-    
-    [ContextMenu("FindLargestPath")]
-    public void FindLargestPath()
-    {
-        var path = Pathfinder.FindLargestPath(state);
-        if (path != null) StartCoroutine(Co_PlayPath(path));
+        NPCManager.buttonActive = true;
+        npc.youWinScreen.SetActive(false);
+        state.playerPosition = startPosition;
+        foreach (var gridCell in state.Grid.cells)
+        {
+            if (!gridCell.walkable) continue;
+            gridCell.cost = Random.Range(5, 10);
+            gridCell.visited = false;
+        }
+        state.Grid.GetCell(startPosition.x, startPosition.y).cost = 0;
+        state.Grid.GetCell(goalPosition.x, goalPosition.y).cost = 0;
+        Threshold = defaultThreshold;
+        CurrentCost = 0;
+        State = state;
     }
 }
