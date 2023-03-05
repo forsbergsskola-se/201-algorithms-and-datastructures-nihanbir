@@ -28,6 +28,7 @@ A modified version of BFS algorithm was used to solve this problem.
 
 ![3](https://user-images.githubusercontent.com/112477158/222987684-71511891-7c8c-48f8-bfe2-d7bc1e623659.png)
 
+Player Movement
 ![Untitled video - Made with Clipchamp](https://user-images.githubusercontent.com/112477158/222987699-637ead9c-8488-4a53-a4e8-f4c86b08af7e.gif)
 
 ![Untitled video - Made with Clipchamp (1)](https://user-images.githubusercontent.com/112477158/222987706-71b4fd25-1df3-4207-b03b-855a62ccd0ed.gif)
