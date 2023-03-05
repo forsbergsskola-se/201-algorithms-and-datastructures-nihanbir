@@ -1,3 +1,4 @@
+Problem:
 In a grid of size NxM, there are K obstacles placed randomly. Each obstacle has a weight associated with it, 
 which is a positive integer. The task is to find the path from the bottom-right corner to top-left corner 
 that passes through the obstacles with the minimum total weight.
@@ -16,6 +17,7 @@ the random placement of the obstacles and the changing teleportation threshold.
 When the goal can't be reached with the smallest weight path, the optimal thing for the player to do, would be to expand T maximally by 
 taking the biggest weight path. To solve the problem of finding the biggest weight path, a case which swaps the objective of the algorithm can be added.
 
+Solution:
 Initially thought algorithm was Dijkstra however it didn't solve the problem of collecting the heighest weight when there was no path to the goal. 
 
 A modified version of BFS algorithm was used to solve this problem.
