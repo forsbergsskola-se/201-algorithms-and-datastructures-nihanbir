@@ -90,19 +90,10 @@ public class Game : MonoBehaviour
         CurrentCost = 0;
         State = state;
     }
-    // public void TeleportToStart()
-    // {
-    //     NPCManager.buttonActive = true;
-    //     state.playerPosition = startPosition;
-    //     foreach (var gridCell in state.Grid.cells) if (gridCell.walkable) gridCell.visited = false;
-    //     Threshold += (int)(CurrentCost * .7f);
-    //     NPCManager.GameIsActive = true;
-    //     CurrentCost = 0;
-    //     State = state;
-    // }
 
     public void RestartGame()
     {
+        if(!npc.gemInfo.activeSelf) npc.gemInfo.SetActive(true);
         NPCManager.buttonActive = true;
         npc.youWinScreen.SetActive(false);
         state.playerPosition = startPosition;
