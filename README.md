@@ -19,7 +19,12 @@ the random placement of the obstacles and the changing teleportation threshold.
 When the goal can't be reached with the smallest weight path, the optimal thing for the player to do, would be to expand T maximally by 
 taking the biggest weight path. To solve the problem of finding the biggest weight path, a case which swaps the objective of the algorithm can be added.
 
+Initially thought algorithm was Dijkstra however it didn't solve the problem of collecting the heighest weight when there was no path to the goal. 
+
 A modified version of BFS algorithm was used to solve this problem.
+BFS stores copies of all paths (when predecessor method isn't used), therefore this seemed like the best option because all paths needed to be compared to eachother to know which one reached the highest weight when the goal wasn't reachable.
+
+Modified BFS was made to take weight into account and to look at **all** ways to get to any given tile, not just the fastest.
 
 ##Media
 ![1](https://user-images.githubusercontent.com/112477158/222987670-f2f446e4-f676-4f1e-9c5e-f81336392738.png)
@@ -30,10 +35,14 @@ A modified version of BFS algorithm was used to solve this problem.
 
 Player Movement
 ![Untitled video - Made with Clipchamp](https://user-images.githubusercontent.com/112477158/222987699-637ead9c-8488-4a53-a4e8-f4c86b08af7e.gif)
-
+____________________________________________________________________________________________________________________________________________________
+Tip
 ![Untitled video - Made with Clipchamp (1)](https://user-images.githubusercontent.com/112477158/222987706-71b4fd25-1df3-4207-b03b-855a62ccd0ed.gif)
-
+____________________________________________________________________________________________________________________________________________________
+Solve when goal is reachable
 ![Untitled video - Made with Clipchamp (2)](https://user-images.githubusercontent.com/112477158/222987717-928e40ba-f5fd-4a36-b971-4b9fde4df034.gif)
-
+____________________________________________________________________________________________________________________________________________________
+Overall
 ![Untitled video - Made with Clipchamp (5)](https://user-images.githubusercontent.com/112477158/222987983-6f18a493-4094-49b2-8b3e-5bdb171f3c6f.gif)
 
+It will be uploaded on unity play.
