@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = hit.transform.position;
                 clickedBlock.previous = currentBlock;
                 currentBlock = clickedBlock;
-
+                currentBlock.GetComponent<SpriteRenderer>().enabled = false;
                 clickedBlock.walkable = false;
             }
         }
