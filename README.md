@@ -1,6 +1,3 @@
-# 201-algorithms-and-datastructures-nihanbir
-201-algorithms-and-datastructures-nihanbir created by GitHub Classroom
-
 In a grid of size NxM, there are K obstacles placed randomly. Each obstacle has a weight associated with it, 
 which is a positive integer. The task is to find the path from the bottom-right corner to top-left corner 
 that passes through the obstacles with the minimum total weight.
