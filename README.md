@@ -23,11 +23,16 @@ A modified version of BFS algorithm was used to solve this problem.
 
 ##Media
 ![1](https://user-images.githubusercontent.com/112477158/222987670-f2f446e4-f676-4f1e-9c5e-f81336392738.png)
+
 ![2](https://user-images.githubusercontent.com/112477158/222987683-fe8d9ad8-0dc2-4cea-9e55-8177c868cfdf.png)
+
 ![3](https://user-images.githubusercontent.com/112477158/222987684-71511891-7c8c-48f8-bfe2-d7bc1e623659.png)
 
 ![Untitled video - Made with Clipchamp](https://user-images.githubusercontent.com/112477158/222987699-637ead9c-8488-4a53-a4e8-f4c86b08af7e.gif)
+
 ![Untitled video - Made with Clipchamp (1)](https://user-images.githubusercontent.com/112477158/222987706-71b4fd25-1df3-4207-b03b-855a62ccd0ed.gif)
+
 ![Untitled video - Made with Clipchamp (2)](https://user-images.githubusercontent.com/112477158/222987717-928e40ba-f5fd-4a36-b971-4b9fde4df034.gif)
+
 ![Untitled video - Made with Clipchamp (5)](https://user-images.githubusercontent.com/112477158/222987983-6f18a493-4094-49b2-8b3e-5bdb171f3c6f.gif)
 
