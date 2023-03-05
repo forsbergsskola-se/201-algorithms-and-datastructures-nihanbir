@@ -10,10 +10,9 @@ public class Game : MonoBehaviour
     [SerializeField] State state;
     public Vector2Int startPosition;
     public Vector2Int goalPosition;
-    [SerializeField] private int defaultThreshold = 34;
+    [SerializeField] private int defaultThreshold = 10;
     [HideInInspector] public State goal;
     public static int Threshold;
-    //[SerializeField] int threshold;
     public static int CurrentCost;
     public event Action<State> StateChanged;
 

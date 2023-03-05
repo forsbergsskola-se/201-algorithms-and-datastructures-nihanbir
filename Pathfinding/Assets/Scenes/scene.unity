@@ -4756,7 +4756,7 @@ MonoBehaviour:
     m_grid: {fileID: 11400000, guid: 6cded7d74aabba54a82a38e2dfe014ee, type: 2}
   startPosition: {x: 4, y: 0}
   goalPosition: {x: 0, y: 6}
-  defaultThreshold: 34
+  defaultThreshold: 10
   goal:
     playerPosition: {x: 0, y: 0}
     m_grid: {fileID: 0}
