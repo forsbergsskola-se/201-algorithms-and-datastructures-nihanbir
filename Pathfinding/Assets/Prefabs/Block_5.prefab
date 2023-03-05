@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6782602912304045060}
   - component: {fileID: 1612572578604415344}
-  - component: {fileID: -740005066115399651}
   - component: {fileID: 132418430158819441}
   - component: {fileID: -5275960876591473393}
+  - component: {fileID: -9027398117861062704}
   m_Layer: 0
   m_Name: Block_5
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: cad2b17c88b848c4d9ded10e70dce0b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -87,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-740005066115399651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9158676296450722879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f1b31484acab48469b2754bdd8385df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 0
-  walkable: 0
-  neighbors: []
-  previous: {fileID: 0}
 --- !u!61 &132418430158819441
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +134,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-9027398117861062704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158676296450722879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd32904e6aa4ac78510816810c93a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 1612572578604415344}
