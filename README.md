@@ -50,5 +50,8 @@ ________________________________________________________________________________
 Overall
 
 ![Untitled video - Made with Clipchamp (5)](https://user-images.githubusercontent.com/112477158/222987983-6f18a493-4094-49b2-8b3e-5bdb171f3c6f.gif)
+____________________________________________________________________________________________________________________________________________________
+Play link
 
-It will be uploaded on unity play.
+
+(https://play.unity.com/mg/other/pathfindingwebgl)
